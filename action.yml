@@ -1,0 +1,15 @@
+name: ''
+description: ''
+branding:
+  icon: 'chevron-down'
+  color: 'white'
+inputs:
+  SUCCESS_MSG:
+    description: 'Success message'
+    required: true
+    default: 'Deployment completed.'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.event_before }}
