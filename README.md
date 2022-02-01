@@ -1,11 +1,11 @@
 # Release management
 
-Create a log of pushed commits and identify ClickUp tickets related to merged branches.
+Create a log of pushed commits and identify [ClickUp](https://clickup.com/) tickets related to merged branches.
 
 ## :gear: How does it work?
 
 1. Pushed commits are verified and added along with their hash to the output log.
-2. The commits related to mergers are identified and it is checked if they have a ticket in ClickUp.
+2. The commits related to merges are identified and it is checked if they have a respective ClickUp ticket.
 3. The link of the identified tickets is added to the output log.
 4. The `BODY_SUCCESS` variable is sent as env variable as the output of the action.
 
@@ -44,7 +44,7 @@ jobs:
         uses: pcvg/release-management@test
         with:
           SUCCESS_MSG: "Deployment completed. :) "
-      - name: Notify Innovation Hub
+      - name: Notify on Slack
         if: success()
         uses: pcvg/slack-notification-action@main
         with:
