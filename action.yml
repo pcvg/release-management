@@ -1,0 +1,26 @@
+name: 'release-management'
+description: 'Send a log about the push commits to the output of this action and if they are related to a ClickUp ticket'
+branding:
+  icon: 'chevron-down'
+  color: 'white'
+inputs:
+  SUCCESS_MSG:
+    description: 'Success message'
+    required: true
+    default: 'Workflow completed.'
+  CLICKUP_KEY:
+    description: 'ClickUp API Key'
+    required: true
+  GH_EVENT_BEFORE:
+    description: 'ID of the previous workflow'
+    required: true
+    default: ${{ github.event.before }}
+  GH_SHA:
+    description: 'Commits sha'
+    required: true
+    default: ${{ github.sha }}
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.event_before }}
