@@ -11,7 +11,7 @@ IFS=$'\n' commits=`git log --oneline --pretty="%h^%s" $GH_EVENT_BEFORE..$GH_SHA`
 for i in $commits; do
   commit_name=${i#*^}
   commit_hash=${i%^*}
-  changes_dev+=("\n\\\`<https://github.com/pcvg/sz-vergleich/commit/$commit_hash|$commit_hash>\\\` - $commit_name")
+  changes_dev+=("\n\\\`<https://github.com/$GITHUB_REPOSITORY/commit/$commit_hash|$commit_hash>\\\` - $commit_name")
   if [[ $commit_name == *"CV"* ]]; then
     task_id=`echo ${commit_name##*/} | grep -o 'CV[^ _]\+'`
     request=$(curl -H "Authorization: $CLICKUP_KEY" -H "Content-Type: application/json" \
