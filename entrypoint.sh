@@ -21,5 +21,5 @@ for i in $commits; do
 done
 if [ -z $task_id ]; then changes=("${changes[@]}" "\n${changes_dev[@]}"); else changes=("${changes[@]}" "${changes_ct[@]}" "\n${changes_dev[@]}"); fi
 echo 'BODY_SUCCESS<<EOF' >> $GITHUB_ENV
-echo ${changes[*]} >> $GITHUB_ENV
+printf "%s\n" "${changes[@]}" | sort -u >> $GITHUB_ENV
 echo 'EOF' >> $GITHUB_ENV
