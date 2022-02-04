@@ -1,5 +1,5 @@
 name: 'release-management'
-description: 'Send a log about the push commits to the output of this action and if they are related to a ClickUp ticket'
+description: 'Create a log of pushed commits and identify ClickUp tickets related to merged branches.'
 branding:
   icon: 'chevron-down'
   color: 'white'
