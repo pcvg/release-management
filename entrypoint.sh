@@ -16,10 +16,12 @@ for i in $commits; do
     task_id=`echo ${commit_name##*/} | grep -o 'CV[^ _]\+'`
     request=$(curl -H "Authorization: $CLICKUP_KEY" -H "Content-Type: application/json" \
     "https://api.clickup.com/api/v2/task/$task_id/?custom_task_ids=true&team_id=2467150&include_subtasks=" | tr '\r\n' ' ')
-    changes_ct+=("\n<"$(printf '%s\n' "$request" | jq -r ".url")"|"$(printf '%s\n' "$request" | jq -r ".name")">")
+    if [[ ! " ${changes_ct[*]} " =~ $(printf '%s\n' "$request" | jq -r ".url") ]]; then
+      changes_ct+=("\n<"$(printf '%s\n' "$request" | jq -r ".url")"|"$(printf '%s\n' "$request" | jq -r ".name")">")
+    fi
   fi
 done
 if [ -z $task_id ]; then changes=("${changes[@]}" "\n${changes_dev[@]}"); else changes=("${changes[@]}" "${changes_ct[@]}" "\n${changes_dev[@]}"); fi
 echo 'BODY_SUCCESS<<EOF' >> $GITHUB_ENV
-printf "%s\n" "${changes[@]}" | sort -u >> $GITHUB_ENV
+echo ${changes[*]} >> $GITHUB_ENV
 echo 'EOF' >> $GITHUB_ENV
